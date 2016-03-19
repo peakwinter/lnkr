@@ -4,8 +4,8 @@ from __future__ import print_function
 from flask import Blueprint, jsonify, abort, redirect, request
 from flask.views import MethodView
 
-from database import session
-from models import Shortlink
+from .database import session
+from .models import Shortlink
 
 viewprint = Blueprint('viewprint', __name__)
 
@@ -31,13 +31,13 @@ class LinkManager(MethodView):
         if not data or not data.get('shortlink') or not data["shortlink"].get('url'):
             abort(400)
 
-        link = Shortlink.query.filter(Shortlink.url == data.get('url')).first()
+        link = Shortlink.query.filter(Shortlink.url == data["shortlink"]["url"]).first()
         if link:
             # if the shortlink already exists, just return the original
             return jsonify(shortlink=link.json), 200
         else:
             # if not, create new shortlink and return it
-            link = Shortlink(data.get('url'))
+            link = Shortlink(data["shortlink"].get('url'))
             session.add(link)
             session.commit()
             return jsonify(shortlink=link.json), 201

@@ -13,5 +13,5 @@ Base = declarative_base()
 Base.query = session.query_property()
 
 def init_db():
-    import models
+    from .models import Shortlink
     Base.metadata.create_all(bind=engine)

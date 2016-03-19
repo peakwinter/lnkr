@@ -4,9 +4,9 @@ from __future__ import print_function
 from flask import Flask
 from werkzeug.exceptions import default_exceptions
 
-from views import viewprint
-from database import init_db, session
-from utils import error_to_json
+from .views import viewprint
+from .database import init_db, session
+from .utils import error_to_json
 
 # Set runlevel here
 DEBUG = True
@@ -19,7 +19,7 @@ def create_app(env='Defaults'):
     app = Flask(__name__)
     app.config["DEBUG"] = DEBUG
     app.register_blueprint(viewprint)
-    for code in default_exceptions.iterkeys():
+    for code in iter(default_exceptions.keys()):
         app.error_handler_spec[None][code] = error_to_json
     init_db()
     return app

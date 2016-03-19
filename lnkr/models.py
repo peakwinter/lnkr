@@ -4,8 +4,8 @@ from __future__ import print_function
 import datetime
 from sqlalchemy import Column, DateTime, Integer, String, text
 
-from database import Base
-from utils import generate_id
+from .database import Base
+from .utils import generate_id
 
 
 class Shortlink(Base):
