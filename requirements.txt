@@ -1,0 +1,4 @@
+-e .
+Flask>=0.10.1
+SQLAlchemy>=1.0.12
+click>=6.3
